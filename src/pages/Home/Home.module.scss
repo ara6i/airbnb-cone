@@ -1,0 +1,55 @@
+@import '../../styles/_variables';
+@import '../../styles/_mixins';
+
+.home {
+  padding: $home-padding;
+  display: flex;
+  flex-direction: column;
+  gap: $home-gap;
+
+  h1 {
+    color: $secondary-color;
+    @include responsive-font-size($font-size-large);
+    text-align: center;
+    margin-bottom: $home-title-margin-bottom;
+  }
+
+  .carouselContainer {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax($carousel-min-width-lg, 1fr)
+    );
+    grid-gap: $carousel-gap;
+    justify-content: center;
+
+    .carousel {
+      width: 100%;
+      height: $carousel-height;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .carouselContainer {
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax($carousel-min-width-md, 1fr)
+      );
+    }
+  }
+
+  @media (max-width: 768px) {
+    .carouselContainer {
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax($carousel-min-width-sm, 1fr)
+      );
+    }
+  }
+
+  @media (max-width: 480px) {
+    .carouselContainer {
+      grid-template-columns: 1fr;
+    }
+  }
+}

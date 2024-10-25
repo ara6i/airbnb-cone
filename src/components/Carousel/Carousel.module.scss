@@ -1,0 +1,127 @@
+@import '../../styles/_variables';
+@import '../../styles/_mixins';
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: $carousel-height;
+  overflow: hidden;
+  background-color: $background-color;
+  border-radius: $border-radius;
+
+  .carouselTrack {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .carouselItem {
+    flex: 0 0 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $background-color;
+
+    .image {
+      width: 100%;
+      height: $carousel-image-height;
+      object-fit: cover;
+    }
+
+    .text {
+      padding: 10px;
+      text-align: center;
+
+      h3 {
+        @include responsive-font-size($font-size-large);
+        color: $secondary-color;
+        margin: 5px 0;
+      }
+
+      p {
+        @include responsive-font-size($font-size-small);
+        color: darken($secondary-color, 10%);
+        margin: 2px 0;
+      }
+    }
+  }
+
+  .prevButton,
+  .nextButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $carousel-button-size;
+    height: $carousel-button-size;
+    border-radius: 50%;
+    background-color: $carousel-button-bg-color;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $button-box-shadow;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0;
+    transition:
+      opacity 0.3s ease-in-out,
+      background-color 0.3s ease;
+
+    &:hover {
+      background-color: $carousel-button-hover-bg-color;
+      opacity: 1;
+    }
+  }
+
+  .prevButton {
+    left: 10px;
+  }
+
+  .nextButton {
+    right: 10px;
+  }
+
+  &:hover .prevButton,
+  &:hover .nextButton {
+    opacity: 1;
+  }
+
+  .dots {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: $dot-gap;
+
+    .dot {
+      width: $dot-size;
+      height: $dot-size;
+      background-color: $dot-bg-color;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &.active {
+        background-color: $dot-active-bg-color;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .prevButton,
+    .nextButton {
+      width: $carousel-button-size-sm;
+      height: $carousel-button-size-sm;
+    }
+
+    .dots {
+      bottom: 10px;
+      .dot {
+        width: $dot-size-sm;
+        height: $dot-size-sm;
+      }
+    }
+  }
+}

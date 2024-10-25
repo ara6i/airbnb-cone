@@ -1,0 +1,93 @@
+@import '../../styles/_variables';
+
+.navWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.prevButton,
+.nextButton {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: $button-size;
+  height: $button-size;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: $button-box-shadow;
+  transition: opacity 0.3s ease;
+}
+
+.prevButton {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+}
+
+.nextButton {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+
+.navList {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  padding: 0;
+  margin: 0;
+  gap: $nav-gap;
+  list-style: none;
+  width: 100%;
+  scrollbar-width: none;
+}
+
+.navList::-webkit-scrollbar {
+  display: none;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: $nav-item-width-lg;
+  padding: $nav-item-padding;
+  cursor: pointer;
+
+  .icon {
+    font-size: $icon-size;
+    margin-bottom: $icon-margin-bottom;
+  }
+
+  .label {
+    font-size: $label-font-size;
+    color: $secondary-color;
+  }
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+@media (max-width: 1200px) {
+  .navItem {
+    min-width: $nav-item-width-md;
+  }
+}
+
+@media (max-width: 768px) {
+  .navItem {
+    min-width: $nav-item-width-sm;
+  }
+}
+
+@media (max-width: 480px) {
+  .navItem {
+    min-width: $nav-item-width-xs;
+  }
+}

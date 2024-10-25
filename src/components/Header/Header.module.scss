@@ -1,0 +1,96 @@
+@import '../../styles/_variables';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px;
+  background-color: $background-color;
+  box-shadow: $header-box-shadow;
+
+  .logo {
+    img {
+      height: $logo-height-lg;
+    }
+  }
+
+  .nav ul {
+    list-style: none;
+    display: flex;
+    gap: $nav-gap-lg;
+
+    li {
+      font-size: $nav-font-size-lg;
+      cursor: pointer;
+      color: $secondary-color;
+      font-weight: normal;
+
+      &.active {
+        font-weight: bold;
+        color: $primary-color;
+      }
+    }
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+
+    .profileIcon {
+      width: $profile-icon-size-lg;
+      height: $profile-icon-size-lg;
+      border-radius: 50%;
+      fill: $profile-icon-color;
+    }
+  }
+}
+
+// Media Queries for Responsive Design
+@media (max-width: 768px) {
+  .header {
+    padding: $header-padding-md;
+
+    .logo img {
+      height: $logo-height-md;
+    }
+
+    .nav ul {
+      gap: $nav-gap-md;
+
+      li {
+        font-size: $nav-font-size-md;
+      }
+    }
+
+    .profile .profileIcon {
+      width: $profile-icon-size-md;
+      height: $profile-icon-size-md;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    padding: $header-padding-sm;
+
+    .logo img {
+      height: $logo-height-sm;
+    }
+
+    .nav ul {
+      flex-direction: column;
+      align-items: center;
+      gap: $nav-gap-sm;
+
+      li {
+        font-size: $nav-font-size-sm;
+      }
+    }
+
+    .profile .profileIcon {
+      width: $profile-icon-size-sm;
+      height: $profile-icon-size-sm;
+    }
+  }
+}

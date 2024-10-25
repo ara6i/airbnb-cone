@@ -1,0 +1,20 @@
+// Mixin for responsive font-size
+@mixin responsive-font-size($size, $multiplier: 1) {
+  font-size: $size * $multiplier;
+
+  @media (max-width: 768px) {
+    font-size: $size * 0.8 * $multiplier; // Adjust for mobile
+  }
+}
+
+// Mixin for center alignment
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Mixin for box-shadow
+@mixin box-shadow($shadow-color) {
+  box-shadow: 0 4px 8px $shadow-color;
+}

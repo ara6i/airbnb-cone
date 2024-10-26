@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-
 import styles from './Carousel.module.scss';
 import { useCarousel } from './useCarousel';
 
@@ -17,9 +16,41 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ slides }) => {
   const { currentIndex, totalSlides, nextSlide, prevSlide, goToSlide } =
     useCarousel(slides);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStartX) return;
+
+    const touchEndX = e.touches[0].clientX;
+    const distance = touchEndX - touchStartX;
+
+    // Swipe threshold (in pixels) to trigger a slide change
+    const threshold = 50;
+
+    if (distance > threshold) {
+      prevSlide();
+      setTouchStartX(null); // reset to avoid multiple triggers in the same swipe
+    } else if (distance < -threshold) {
+      nextSlide();
+      setTouchStartX(null); // reset to avoid multiple triggers in the same swipe
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setTouchStartX(null); // reset on touch end
+  };
 
   return (
-    <div className={styles.carousel}>
+    <div
+      className={styles.carousel}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <motion.div
         className={styles.carouselTrack}
         animate={{ x: -currentIndex * 100 + '%' }}
@@ -40,28 +71,23 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
         ))}
       </motion.div>
 
-      {/* Prev Button - only show if not on the first slide */}
       {currentIndex > 0 && (
         <button className={styles.prevButton} onClick={prevSlide}>
           ❮
         </button>
       )}
 
-      {/* Next Button - show on every slide except the last */}
       {currentIndex < totalSlides - 1 && (
         <button className={styles.nextButton} onClick={nextSlide}>
           ❯
         </button>
       )}
 
-      {/* Pagination Dots */}
       <div className={styles.dots}>
         {Array.from({ length: totalSlides }).map((_, i) => (
           <span
             key={i}
-            className={`${styles.dot} ${
-              i === currentIndex ? styles.active : ''
-            }`}
+            className={`${styles.dot} ${i === currentIndex ? styles.active : ''}`}
             onClick={() => goToSlide(i)}
           ></span>
         ))}

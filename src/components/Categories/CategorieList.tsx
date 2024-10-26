@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Categories.module.scss';
 
 const navItems = [
-  { icon: '🟊', label: 'Icons' },
   { icon: '🏠', label: 'Tiny homes' },
   { icon: '🏕️', label: 'Cabins' },
   { icon: '🌅', label: 'Amazing views' },
